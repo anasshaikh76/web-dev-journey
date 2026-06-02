@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>My Todo List</h1>
+
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button id="addBtn">+ Add Task</button>
+
+    <h2>Tasks:</h2>
+    <ul id="taskList">
+        <li>Example: Learn Html</li>
+        <li>Example: Learn JavaScript</li>
+    </ul>
+
+    <script>
+        document.getElementById("addBtn").addEventListener("click", function() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value;
+
+            if (taskInput === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let newTask = document.createElement("li");
+            newTask.innerHTML = taskText;
+            document.getElementById("taskList").appendChild(newTask);
+
+            taskInput.value = "";
+        })
+    </script>
+</body>
+</html>

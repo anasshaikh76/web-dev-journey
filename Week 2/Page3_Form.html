@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Form</title>
+</head>
+<body>
+    <h1>User Information Form</h1>
+    
+    <label>Name:</label>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <br><br>
+    
+    <label>Email:</label>
+    <input type="email" id="emailInput" placeholder="Enter your email">
+    <br><br>
+    
+    <label>Age:</label>
+    <input type="number" id="ageInput" placeholder="Enter your age">
+    <br><br>
+    
+    <button id="submitBtn">✅ Submit</button>
+    
+    <hr>
+    
+    <h2 id="result"></h2>
+    
+    <script>
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            let name = document.getElementById("nameInput").value;
+            let email = document.getElementById("emailInput").value;
+            let age = document.getElementById("ageInput").value;
+            
+            if (name === "" || email === "" || age === "") {
+                alert("Please fill all fields!");
+                return;
+            }
+            
+            let message = "Hello " + name + "! Your email is " + email + " and you are " + age + " years old.";
+            document.getElementById("result").innerHTML = message;
+        });
+    </script>
+</body>
+</html>

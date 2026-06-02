@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Counter App</title>
+</head>
+<body>
+    <h1>Simple Counter</h1>
+
+    <p>Count: <span id= "count">0</span></p>
+
+    <button id="increment">+</button>
+    <button id="decrement">-</button>
+    <button id="reset">Reset</button>
+
+    <script>
+        let counter = 0;
+
+        document.getElementById("increment").addEventListener("click",function() {
+            counter++;
+            document.getElementById("count").innerHTML = counter;
+        });
+
+        document.getElementById("decrement").addEventListener("click",function() {
+            counter--;
+            document.getElementById("count").innerHTML = counter;
+        });
+
+        document.getElementById("reset").addEventListener("click",function() {
+            counter = 0;
+            document.getElementById("count").innerHTML = counter;
+        });
+    </script>
+</body>
+</html>
