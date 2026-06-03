@@ -1,0 +1,106 @@
+<!DOCTYPT html>
+<html>
+<head>
+    <title>DOM Selection Practice</title>
+</head>
+<body>
+    <h1>DOM Selection Practice</h1>
+
+    <button id="btn1">Button 1</button>
+    <button id="btn2">Button 2</button>
+
+    <div class="box">Box 1</div>
+    <div class="box">Box 2</div>
+    <div class="box">Box 3</div>
+
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+    <p>Paragraph 3</p>
+
+    <span id="message">Hello</span>
+
+    <ul id="list">
+        <li class="item">Item 1</li>
+        <li class="item">Item 2</li>
+        <li class="item">Item 3</li>
+    </ul>
+
+    <script>
+
+        //Problem 1 — Select by ID
+        let button1 = document.getElementById("btn1");
+        console.log(button1);
+        console.log("Button text: " + button1.innerHTML);
+        //What's happening: getElementById finds the button with id="btn1" and stores it. innerHTML gets the text inside it.
+
+        //Problem 2 — Select another by ID
+        let button2 = document.getElementById("btn2");
+        console.log(button2);
+        console.log("Button Text: " + button2.innerHTML);
+
+        //Problem 3 — Check if element exists
+        let button3 = document.getElementById("btn3");
+        console.log(button3);
+        // What's happening: When element isn't found, JavaScript returns null instead of crashing. Always good to know!
+
+        // Problem 4 — querySelector by class (finds first only)
+        let firstBox = document.querySelector(".box");
+        console.log(firstBox);
+        console.log("Box text: " + firstBox.innerHTML);
+        // What's happening: .box means class="box". querySelector finds only the first matching element. 
+
+        // Problem 5 — querySelectorAll by class (finds all)
+        let allBoxes = document.querySelectorAll(".box");
+        console.log(allBoxes);
+        console.log("Total Boxes: " + allBoxes.length);
+        // What's happening: querySelectorAll finds all elements with that class and returns a list.
+
+        // Problem 6 — Loop through multiple elements
+        let allboxes = document.querySelectorAll(".box");
+        allBoxes.forEach((box, index) => {
+            console.log((index + 1) + ". " + box.innerHTML);
+        })
+        // What's happening: Same as looping through an array — forEach goes through each element one by one.
+
+        // Problem 7 — Select by tag name
+        let paragraphs = document.querySelectorAll("p");
+        console.log(paragraphs);
+        console.log("Total Paragarph: " + paragraphs.length);
+        // What's happening: You can select by tag name too — no # or . needed, just write "p".
+
+        // Problem 8 — Get text from all paragraphs
+        let paragraph = document.querySelectorAll("p");
+        paragraph.forEach((para, index) => {
+            console.log((index + 1) + ". " + para.innerHTML);
+        })
+
+        // Problem 9 — First and last element
+        let parag = document.querySelectorAll("p");
+        let firstPara = parag[0];
+        let lastPara = parag[parag.length - 1];
+        console.log("First: " + firstPara.innerHTML);
+        console.log("Last: " + lastPara.innerHTML);
+        // What's happening: Just like arrays, you access items by index. length - 1 always gives the last one.
+
+        // Problem 10 — Select span by ID
+        let message = document.getElementById("message");
+        console.log(message.innerHTML);
+
+        // Problem 11 — Select list items by class
+        let items = document.querySelectorAll(".item");
+        console.log(items);
+        console.log("Total Items: " + items.length);
+
+        // Problem 12 — Count all element types
+        let allButtons = document.querySelectorAll("button");
+        let allDiv = document.querySelectorAll("div");
+        let allLis = document.querySelectorAll("li");
+
+        console.log("Total Buttons: " + allButtons.length);
+        console.log("Total Divs: " + allDiv.length);
+        console.log("Total Lis: " + allLis.length);
+
+    </script>
+
+</body>
+</html>
