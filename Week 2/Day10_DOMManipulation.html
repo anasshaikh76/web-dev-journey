@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dom Manipulation Practice</title>
+    <style>
+        .active {
+            background-color: green;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin: 10px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dom Manipulation Practice</h1>
+
+    <p id="text">Original Text</p>
+    <button id="changeTextBtn">Change Text</button>
+
+    <button id="colorBtn" style="background-color: lightblue;">
+        Click To Change Color
+    </button>
+
+    <div id="box" class="box">Box 1</div>
+    <button id="toggleBtn">Toggle Class</button>
+
+    <div id="message">Tis is a message</div>
+    <button id="hideBtn">Hide/Show</button>
+
+    <input type="text" id="input" placeholder="Type something">
+    <button id="updateBtn">Updates Text</button>
+    <p id="output">Output> Appears Here</p>
+
+    <script>
+        // Problem 1 — Change text with innerHTML
+        let textElement = document.getElementById("text");
+        console.log("Before: " + textElement.innerHTML);
+        textElement.innerHTML = "Text Changed with InnerHtml!";
+        console.log("After: " + textElement.innerHTML);
+        // What's happening: innerHTML gets or sets everything inside the element including HTML tags.
+
+        // Problem 2 — Change text with textContent
+        let textElement1 = document.getElementById("text");
+        textElement1.textContent = "Text Changed With TextContent"
+        console.log("Text: " + textElement1.textContent);
+        // Difference from innerHTML: textContent treats everything as plain text — HTML tags won't work here.
+
+        // Problem 3 — Add bold text using innerHTML
+        let textElement2 = document.getElementById("text");
+        textElement2.innerHTML = "<b>This is Bold Text!</b>";
+        console.log("HTML: " + textElement2.innerHTML);
+        // What's happening: Only innerHTML can render HTML tags. textContent would show <b> as plain text.
+
+        // Problem 4 — Change text color on button click
+        document.getElementById("changeTextBtn").addEventListener("click", function() {
+            let text = document.getElementById("text");
+            text.style.color = "red";
+            text.innerHTML = "Text is now red!";
+            console.log("Color changed to red!");
+        })
+        // What's happening: When button is clicked, we change both the style and the text together.
+
+        // Problem 5 — Change multiple styles on click
+        let colorBtn = document.getElementById("colorBtn");
+        colorBtn.addEventListener("click", function() {
+            colorBtn.style.backgroundColor = "orange";
+            colorBtn.style.color = "white";
+            colorBtn.style.fontSize = "18px";
+            colorBtn.innerHTML = "Color Changed";
+            console.log("Multiple Style Changed");
+        })
+        // Note: CSS property names with hyphens become camelCase in JS — background-color becomes backgroundColor, font-size becomes fontSize.
+
+        // Problem 6 — Change size of element
+        let box = document.getElementById("box");
+        box.style.width = "200px";
+        box.style.height = "200px";
+        box.style.fontSize = "20px";
+        console.log("Box Size Changed");
+
+        // Problem 7 — Add CSS class
+        document.getElementById("toggleBtn").addEventListener("click", function() {
+            let box = document.getElementById("box");
+            box.classList.add("active");
+            console.log("Active Class Added- Box is now green");
+        })
+        // What's happening: Instead of writing styles in JS, we just add a CSS class that already has the styles defined.
+
+        // Problem 8 — Check if class exists
+        let box1 = document.getElementById("box");
+        if (box1.classList.contains("active")) {
+            console.log("Box have Active Class");
+        } else {
+            console.log("Box Does Not Have An Active Class");
+        }
+
+        // Problem 9 — Remove CSS class
+        let box2 = document.getElementById("box");
+        box2.classList.remove("active");
+        console.log("Active Class Removed");
+
+        // Problem 10 — Hide and show element
+        document.getElementById("hideBtn").addEventListener("click", function() {
+            let message = document.getElementById("message");
+            if (message.classList.contains("hidden")) {
+                message.classList.remove("hidden");
+                console.log("Message Shown!")
+            } else {
+                message.classList.add("hidden");
+                console.log("Message Hidden!");
+            }
+        })
+        // What's happening: The hidden CSS class has display:none — adding it hides the element, removing it shows it again.
+
+        // Problem 11 — Toggle class (cleaner way)
+        document.getElementById("toggleBtn").addEventListener("click", function() {
+            let box = document.getElementById("box");
+            box.classList.toggle("active");
+            console.log("Toggled! Has active: " + box.classList.contains("active"));
+        });
+        // What's happening: toggle automatically adds the class if missing, removes it if present — no if/else needed!
+
+        // Problem 12 — Change opacity
+        let output = document.getElementById("output");
+        output.style.opacity = "0.3";
+        console.log("Opacity Changed to 30%");
+        // Note: opacity goes from 0 (invisible) to 1 (fully visible). 0.3 means 30% visible.
+
+        // Problem 13 — Get input value and display it
+        document.getElementById("updateBtn").addEventListener("click", function() {
+            let inputValue = document.getElementById("input").value;
+            document.getElementById("output").innerHTML = "You Typed: " + inputValue;
+            console.log("Input value: " + inputValue);
+        })
+        // What's happening: .value gets whatever the user typed in the input field — this is how all forms work!
+
+        // Problem 14 — Change an attribute
+        let input = document.getElementById("input");
+        input.setAttribute("placeholder", "New placeholder text!");
+        console.log("Placeholder Changed");
+        // What's happening: setAttribute changes any HTML attribute — placeholder, disabled, type, src etc.
+
+        // Problem 15 — Mini Project: Combine everything
+        document.getElementById("updateBtn").addEventListener("click", function() {
+            let inputValue = document.getElementById("input").value;
+
+            if (inputValue === "") {
+                alert("Please type something first");
+                return;
+            }
+
+            let output = document.getElementById("output");
+            output.innerHTML = "You Typed! <b>" + inputValue + "</b>";
+            output.style.color = "blue";
+            output.style.fontSize = "20px";
+            output.classList.add("active");
+
+            document.getElementById("active").value;
+            console.log("All Changes Applied");
+        })
+    </script>
+</body>
+</html>
