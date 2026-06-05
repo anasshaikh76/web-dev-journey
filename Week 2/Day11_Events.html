@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dom Event Practice</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .highlight {
+            background-color: yellow;
+            border: 20x solid red;
+        }
+        .button {
+            margin: 10px 20px;
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dom Event Practice</h1>
+
+    <button id="btn1">Click Me</button>
+    <button id="btn2">Double Click Me</button>
+    <button id="btn3">Right Click Me</button>
+
+    <div id="box" class="box">Hover Over Me!</div>
+
+    <input type="text" id="textInput" placeholder="Type Something...">
+    <p id="output">Output Here</p>
+
+    <input type="text" id="searchInput" placeholder="Search Here..">
+    <p id="searchOutput">Search Result Here!</p>
+
+    <button id="disableBtn">Click to disable</button>
+    <button id="colorBtn">Click to change color!</button>
+    <p id="counter">Clicks : 0</p>
+    <p id="mousePos">Mouse Position</p>
+
+    <textarea id="messageBox" placeholder="Type your message..."
+        style="width: 300px; height: 100px; display: block; margin: 10px 0;">
+    </textarea>
+    <p id="charCount">Character: 0 / 150</p>
+    <button id="submitMsg">Submit Message</button>
+    <p id="finalMsg"></p>
+
+    <script>
+        // Problem 1 — Click Event
+        document.getElementById("btn1").addEventListener("click", function() {
+            document.getElementById("output").innerHTML = "Button Was Clicked";
+            console.log("Click Event Fired");
+        })
+        // What's happening: addEventListener("click") waits for user to click — then runs the function.
+
+        // Problem 2 — Double Click Event
+        document.getElementById("btn2").addEventListener("dblclick", function() {
+            document.getElementById("output").innerHTML = "Double Button Was Clicked";
+            console.log("Double Click was Fired");
+        })
+        // Note: dblclick = double click. User must click twice fast!
+
+        // Problem 3 — Right Click Event
+        document.getElementById("btn3").addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+            document.getElementById("output").innerHTML = "Right Clicked!";
+            console.log("Right Click Fired");
+        })
+        // What's happening: contextmenu is the right click event. e.preventDefault() stops the browser menu from appearing.
+
+        // Problem 4 — Mouse Over & Mouse Out (Hover)
+        let box = document.getElementById("box");
+
+        box.addEventListener("mouseover", function() {
+            box.style.backgroundColor = "orange";
+            box.innerHTML = "Mouse is over me!";
+            console.log("Mouse Enterd");
+        });
+
+        box.addEventListener("mouseout", function() {
+            box.style.backgroundColor = "lightBlue";
+            box.innerHTML = "Hover over me!";
+            console.log("mouse left");
+        })
+        // What's happening: mouseover fires when mouse enters the element, mouseout when it leaves.
+
+        // Problem 5 — Mouse Position Tracker
+        document.addEventListener("mousemove", function(e) {
+            document.getElementById("mousePos").innerHTML = `Mouse Position: X=${e.clientX}, Y=${e.clientY}`;
+        });
+        // What's happening: e.clientX and e.clientY give the mouse coordinates. Move your mouse and watch the numbers change!
+
+        // Problem 6 — Keydown Event
+        document.getElementById("textInput").addEventListener("keydown", function(e) {
+            console.log("Key Pressed:" + e.key);
+            document.getElementById("output").innerHTML = "Key Pressed:" + e.key;
+        })
+        // What's happening: e.key tells you exactly which key was pressed. Try pressing different keys!
+
+        // Problem 7 — Keyup Event
+        document.getElementById("textInput").addEventListener("keyup", function() {
+            let value = document.getElementById("textInput").value;
+            document.getElementById("output").innerHTML = "You Typed: " + value;
+            console.log("Current Input: " + value);
+        })
+        // Difference: keydown fires when key is pressed down, keyup fires when key is released. keyup gives you the updated value!
+
+        // Problem 8 — Live Search (type to filter)
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            let searchValue = document.getElementById("searchInput").value;
+
+            if (searchValue.length > 0) {
+                document.getElementById("searchOutput").innerHTML = `Searching For: <b>${searchValue}</b>`;
+            } else {
+                document.getElementById("searchOutput").innerHTML = "Search result here!";
+            }
+        });
+        // What's happening: Every time user types a letter, it updates the result live — this is how search bars work!
+
+        // Problem 9 — Enter Key Detection
+        document.getElementById("textInput").addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                let value = document.getElementById("textInput").value;
+                document.getElementById("output").innerHTML = "submitted: " + value;
+                document.getElementById("textInput").value = "";
+                console.log("Enetered Pressed! Value: " + value);
+            }
+        })
+        // What's happening: Checks if the pressed key is specifically "Enter" — very common in forms!
+
+        // Problem 10 — Click Counter
+        let clcikCounter = 0;
+
+        document.getElementById("btn1").addEventListener("click", function() {
+            clcikCounter++;
+            document.getElementById("counter").innerHTML = "Clicks: " + clcikCounter;
+            console.log("Total clicks: " + clcikCounter);
+        })
+        // What's happening: Variable clickCount lives outside the function so it keeps its value between clicks!
+
+        // Problem 11 — Button Disable after Click
+        document.getElementById("disableBtn").addEventListener("click", function() {
+            this.disabled = true;
+            this.innerHTML = "Disabled!";
+            this.style.backgroundColor = "gray";
+            console.log("Button Disabled!");
+        })
+        // What's happening: this refers to the element that was clicked — same as using document.getElementById("disableBtn") but shorter!
+
+        // Problem 12 — Toggle Color on Click
+        let isBlue = false;
+
+        document.getElementById("colorBtn").addEventListener("click", function() {
+            if (isBlue) {
+                document.getElementById("box").style.backgroundColor = "lightblue";
+                isBlue = false;
+            } else {
+                document.getElementById("box").style.backgroundColor = "blue";
+                isBlue = true;
+            }
+            console.log("Color Toggled! isBlue" + isBlue);
+        })
+        // What's happening: A boolean variable tracks the current state — click once goes blue, click again goes back!
+
+        // Problem 13 — Focus & Blur Events
+        document.getElementById("textInput").addEventListener("focus", function() {
+            this.style.border = "3px solid blue";
+            console.log("Input Focused");
+        })
+        document.getElementById("textInput").addEventListener("blur", function() {
+            this.style.border = "1px solid gray";
+            console.log("Input Lost Focus");
+        })
+        // What's happening: focus fires when user clicks into input, blur fires when they click away. Used a lot in form validation!
+
+        // Problem 14 — Remove Event Listener
+        function handleClick() {
+            document.getElementById("output").innerHTML = "Clicked! removing event listener...";
+            document.getElementById("btn2").removeEventListener("dblclick", handleClick);
+            console.log("Event Listener Removed");
+        }
+        document.getElementById("btn2").addEventListener("dblclick", handleClick);
+        // What's happening: After first double click, the event listener is removed — button won't respond again. To remove a listener you must use a named function, not anonymous!
+
+        // Problem 15 — Mini Project: Live Character Counter
+        document.getElementById("messageBox").addEventListener("keyup", function() {
+            let text = document.getElementById("messageBox").value;
+            let count = text.length;
+            let remaining = 150 - count;
+
+            let charCount = document.getElementById("charCount");
+            charCount.innerHTML = `Characters: ${count} / 150`;
+
+            if (count > 150) {
+                charCount.style.color = "red";
+            } else if (count > 100) {
+                charCount.style.color = "orange";
+            } else {
+                charCount.style.color = "green";
+            }
+        })
+
+        document.getElementById("submitMsg").addEventListener("click", function() {
+            let text = document.getElementById("messageBox").value;
+            if (text.trim() === "") {
+                alert("Please Enter a message!");
+                return;
+            }
+            if (text.length > 150) {
+                alert("Message is too long!");
+                return;
+            }
+            document.getElementById("finalMsg").innerHTML = `✅ Message sent: <b>${text}</b>`;
+            document.getElementById("messageBox").value = "";
+            document.getElementById("charCount").innerHTML = "Characters: 0 / 150";
+        })
+    </script>
+</body>
+</html>
