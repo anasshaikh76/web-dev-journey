@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To Do List App</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .inner-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+        .input-focus {
+            border-color: #3498db;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            background-color: #3498db;
+            color: white;
+        }
+        background:hover {
+            background: #2980b9;
+        }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            font-size: 16px;
+        }
+        .todo-item.done {
+            border-left-color: #2ecc71;
+            text-decoration: line-through;
+            color: #999;
+        }
+        .btn-done {
+            background: #2ecc71;
+            padding: 6px 12px;
+            font-size: 13px;
+            margin-right: 5px;
+        }
+        .btn-delete {
+            background: #e74c3c;
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+        #taskCount {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Todo List</h1>
+
+    <div class="input-area">
+        <input type="text" id="textInput" placeholder="Enter a task...">
+        <button id="addBtn">Add Task</button>
+    </div>
+
+    <div id="taskList"></div>
+    <p id="taskCount">No Task Yet!</p>
+
+    <script>
+        let tasks = [];
+
+        function updateCount() {
+            let total = tasks.length;
+            let done = tasks.filter(t => t.done).length;
+            document.getElementById("taskCount").innerHTML = `Total: ${total} | Done: ${done} | Remaining: ${total - done}`;
+        }
+
+        function rendertask() {
+            let taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+
+            tasks.forEach(function(task, index) {
+                // Create task item div
+                let taskItem = document.createElement("div");
+                taskItem.classList.add("todo-item");
+                if (task.done) taskItem.classList.add("done");
+
+                // Task text
+                let taskText = document.createElement("span");
+                taskText.innerHTML = task.text;
+
+                // Done button
+                let doneBtn = document.createElement("button");
+                doneBtn.innerHTML = task.done ? "undo" : "done"
+                doneBtn.classList.add("btn-done");
+                doneBtn.addEventListener("click", function() {
+                    tasks[index].done = !tasks[index].done;
+                    rendertask();
+                    console.log(`Task "${task.text}" toggled!`);
+                });
+                // Delete button
+                let deleteBtn = document.createElement("button");
+                deleteBtn.innerHTML = "Delete";
+                deleteBtn.classList.add("btn-delete");
+                deleteBtn.addEventListener("click", function() {
+                    tasks.splice(index, 1);
+                    rendertask();
+                    console.log(`Task "${task.text}" deleted!`);
+                });
+                // Put it all together
+                taskItem.appendChild(taskText);
+                taskItem.appendChild(doneBtn);
+                taskItem.appendChild(deleteBtn);
+                taskList.appendChild(taskItem);
+            });
+            updateCount();
+        }
+
+        // Add task on button click
+        document.getElementById("addBtn").addEventListener("click", function() {
+            let input = document.getElementById("textInput");
+            let taskText = input.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            tasks.push({ text: taskText, done: false});
+            input.value = "";
+            rendertask();
+            console.log(`Task "${taskText}" added!`);
+        });
+
+         // Add task on Enter key
+         document.getElementById("textInput").addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                document.getElementById("addBtn").click();
+            }
+         });
+
+         // Initial render
+         rendertask();
+
+    </script>
+</body>
+</html>
