@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial;
+            background: #1a1a2e;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background: #16213e;
+            padding: 40px;
+            border-radius: 15px;
+            width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #e94560;
+            font-size: 32px;
+        }
+        #progressBar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        #progressFill {
+            height: 100%;
+            background: #e94560;
+            border-radius: 4px;
+            transition: width 0.3s;
+            width: 0%;
+        }
+        #questionCount {
+            text-align: right;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        #question {
+            font-size: 22px;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            color: #eee;
+        }
+        .option {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: #0f3460;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .option:hover {
+            border-color: #e94560;
+            background: #1a4a7a;
+        }
+        .option.correct {
+            background: #2ecc71;
+            border-color: #27ae60;
+        }
+        .option.wrong {
+            background: #e74c3c;
+            border-color: #c0392b;
+        }
+        .option:disabled {
+            cursor: not-allowed;
+        }
+        #feedback {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+            min-height: 25px;
+        }
+        #nextBtn {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background: #e94560;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        #nextBtn:hover {
+            background: #c0392b;
+        }
+        #scoreScreen {
+            display: none;
+            text-align: center;
+        }
+        #scoreScreen h2 {
+            font-size: 36px;
+            color: #e94560;
+            margin-bottom: 20px;
+        }
+        #scoreText {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        #scoreMessage {
+            font-size: 18px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        #restartBtn {
+            padding: 15px 40px;
+            background: #e94560;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #restartBtn:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen">
+            <h1>🧠 Quiz App</h1>
+            <div id="progressBar"><div id="progressFill"></div></div>
+            <p id="questionCount"></p>
+            <p id="question"></p>
+            <div id="optionsContainer"></div>
+            <p id="feedback"></p>
+            <button id="nextBtn">Next Question →</button>
+        </div>
+
+        <!-- Score Screen -->
+        <div id="scoreScreen">
+            <h2>Quiz Complete! 🎉</h2>
+            <p id="scoreText"></p>
+            <p id="scoreMessage"></p>
+            <button id="restartBtn">Play Again 🔄</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ===== QUIZ DATA =====
+        const questions = [
+            {
+                question: "Who is known as the Pirate King candidate in One Piece?",
+                options: ["Zoro", "Luffy", "Shanks", "Ace"],
+                answer: "Luffy"
+            },
+            {
+                question: "What is Naruto Uzumaki's dream?",
+                options: ["Become Hokage", "Find Sasuke", "Master Sharingan", "Defeat Madara"],
+                answer: "Become Hokage"
+            },
+            {
+                question: "Which anime features the Survey Corps?", 
+                options: ["Bleach", "Attack on Titan", "Tokyo Ghoul", "Black Clover"], 
+                answer: "Attack on Titan"
+            },
+            {
+                question: "Who is Goku's strongest rival in Dragon Ball Z?", 
+                options: ["Krillin", "Frieza", "Vegeta", "Piccolo"], 
+                answer: "Vegeta"
+            },
+            {
+                question: "What is the name of Light Yagami's notebook?", 
+                options: ["Dark Book", "Soul Note", "Death Note", "Shinigami Scroll"], 
+                answer: "Death Note"
+            },
+            {
+                question: "Which anime has a character named Gojo Satoru?", 
+                options: ["Demon Slayer", "Chainsaw Man", "Jujutsu Kaisen", "Blue Lock"], 
+                answer: "Jujutsu Kaisen"
+            },
+            {
+                question: "Who is the captain of Squad 10 in Bleach?", 
+                options: ["Aizen", "Toshiro Hitsugaya", "Kenpachi", "Byakuya"], 
+                answer: "Toshiro Hitsugaya"
+            },
+            {
+                question: "In Demon Slayer, what is Tanjiro's sister's name?", 
+                options: ["Mitsuri", "Nezuko", "Shinobu", "Kanao"], 
+                answer: "Nezuko"
+            },
+            {
+                question: "Which anime revolves around alchemy and the Elric brothers?", 
+                options: ["Black Clover", "Fullmetal Alchemist", "Hunter x Hunter", "Fairy Tail"], 
+                answer: "Fullmetal Alchemist"
+            },
+            {
+                question: "Who is known as the strongest hero in One Punch Man?", 
+                options: ["Genos", "Blast", "Saitama", "Garou"], 
+                answer: "Saitama"
+            }
+        ];
+
+        // ===== VARIABLES =====
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        // ===== FUNCTIONS =====
+        function loadQuestion() {
+            answered = false;
+            let q = questions[currentQuestion];
+
+            // Update progress
+            let progress = (currentQuestion / questions.length) * 100;
+            document.getElementById("progressFill").style.width = progress + "%";
+            document.getElementById("questionCount").innerHTML =
+                `Question ${currentQuestion + 1} of ${questions.length}`;
+
+            // Show question
+            document.getElementById("question").innerHTML = q.question;
+            document.getElementById("feedback").innerHTML = "";
+            document.getElementById("nextBtn").style.display = "none";
+
+            // Create option buttons
+            let container = document.getElementById("optionsContainer");
+            container.innerHTML = "";
+
+            q.options.forEach(function(option, index) {
+                let btn = document.createElement("button");
+                btn.classList.add("option");
+                btn.innerHTML = option;
+                btn.addEventListener("click", function() {
+                    checkAnswer(index);
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            if (answered) return;
+            answered = true;
+
+            let q = questions[currentQuestion];
+            let options = document.querySelectorAll(".option");
+
+            // Disable all options
+            options.forEach(btn => btn.disabled = true);
+
+            if (q.options[selectedIndex] === q.answer) {
+                options[selectedIndex].classList.add("correct");
+                document.getElementById("feedback").innerHTML = "✅ Correct!";
+                document.getElementById("feedback").style.color = "#2ecc71";
+                score++;
+            } else {
+                options[selectedIndex].classList.add("wrong");
+                let correctIndex = q.options.indexOf(q.answer);
+                options[correctIndex].classList.add("correct");
+                document.getElementById("feedback").innerHTML = "❌ Wrong!";
+                document.getElementById("feedback").style.color = "#e74c3c";
+            }
+
+            document.getElementById("nextBtn").style.display = "block";
+        }
+
+        function showScore() {
+            document.getElementById("quizScreen").style.display = "none";
+            document.getElementById("scoreScreen").style.display = "block";
+
+            let percentage = Math.round((score / questions.length) * 100);
+            document.getElementById("scoreText").innerHTML =
+                `You scored ${score} out of ${questions.length} (${percentage}%)`;
+
+            let message;
+            if (percentage >= 80) message = "🔥 You're an Anime Legend! Even Luffy would be impressed!";
+            else if (percentage >= 60) message = "⚔️ Great job, future Hokage! Keep watching anime!";
+            else if (percentage >= 40) message = "📚 You're still in your training arc!";
+            else message = "💀 Even Zoro got lost less times than your answers!";
+
+            document.getElementById("scoreMessage").innerHTML = message;
+        }
+
+        // ===== EVENT LISTENERS =====
+        document.getElementById("nextBtn").addEventListener("click", function() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showScore();
+            }
+        });
+
+        document.getElementById("restartBtn").addEventListener("click", function() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            document.getElementById("quizScreen").style.display = "block";
+            document.getElementById("scoreScreen").style.display = "none";
+            loadQuestion();
+        });
+
+        // ===== START QUIZ =====
+        loadQuestion();
+    </script>
+</body>
+</html>
