@@ -1,0 +1,171 @@
+/* Problem 1 — Basic element selector */
+
+/* Targets all h1 tags */
+h1{
+    color: red;
+    font-size: 40px;
+}
+/* What's happening: Every <h1> on the page turns red and gets bigger. */
+
+/* Problem 2 — ID selector */
+
+/* Targets element with id="title" */
+#title{
+    color: purple;
+    text-align: center;
+    font-family: Arial;
+}
+/* Note: # means ID — same as JavaScript's querySelector("#title")! */
+
+/* Problem 3 — Class selector */
+
+/* Targets all elements with class="text" */
+.text{
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
+}
+/* Note: . means class — same as JavaScript's querySelector(".text")! */
+
+/* Problem 4 — Multiple classes */
+
+.highlight{
+    background-color: rgb(0, 255, 81);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+/* What's happening: Only the paragraph with BOTH text AND highlight classes gets the yellow background! */
+
+/* Problem 5 — Box styling */
+
+.box{
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    margin: 10px;
+    padding: 20px;
+    border: 2x solid blue;
+    border-radius: 8px;
+}
+/* Note: margin = space OUTSIDE the box. padding = space INSIDE the box. */
+
+/* Problem 6 — Special class override */
+
+.special{
+    background-color: rgb(33, 3, 255);
+    color: white;
+    font-weight: bold;
+    border-color: red;
+}
+/* What's happening: Box 3 has both box AND special classes — it gets all box styles PLUS these special ones! */
+
+/* Problem 7 — Button styling */
+
+.btn{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    background-color: #3498db;
+    color: white;
+}
+
+.btn:hover{
+    opacity: 0.8px;
+}
+/* Note: :hover is a pseudo-class — styles that apply when mouse hovers over element! */
+
+/* Problem 8 — Button color variants */
+
+.btn-red{
+    background-color: #e74c3c;
+}
+
+.btn-green{
+    background-color: #2ecc71;
+}
+/* What's happening: These just override the background color from .btn — everything else stays the same! */
+
+/* Problem 9 — Card styling */
+
+.card{
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+/* Note: box-shadow adds a shadow effect — rgba(0,0,0,0.1) means black at 10% opacity. max-width stops it growing too wide! */
+
+/* Problem 10 — List styling */
+
+.list {
+    list-style: none;
+    padding: 0;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+/* Note: .list li means "only <li> elements INSIDE .list" — called a descendant selector! */
+
+/* Problem 11 — Active list item */
+.list li.active {
+    background-color: #3498db;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* Problem 12 — Hover on list items */
+
+.list li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+    padding-left: 20px;
+    transition: all 0.2s;
+}
+/* Note: transition makes the change smooth instead of instant — very satisfying effect! Try hovering! */
+
+/* Problem 13 — Body styling */
+
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+/* Note: Always style body first — sets the base for the whole page! */
+
+/* Problem 14 — CSS Variables */
+
+:root {
+    --primary: #3498db;
+    --danger: #e74c3c;
+    --success: #2ecc71;
+    --dark: #333333;
+}
+
+h1 {
+    color: var(--primary);
+}
+/* What's happening: CSS variables store colors — change in one place, updates everywhere. You'll use these a lot in real projects! */
+
+/* Problem 15 — Putting it all together */
+/* Update your body CSS to this final version: */
+
+body {
+    background: linear-gradient(135deg, #667eea, #e74c3c);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    min-height: 100vh;
+}
+/* Note: linear-gradient creates a beautiful two-color gradient background! Open browser and see how it looks! */
