@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h2 {
+            margin: 25px 0 10px;
+            color: #333;
+        }
+
+        /* Problem 1 — Basic Grid */
+
+        .p1-grid {
+            display: grid;
+            grid-template-columns: 100px 100px 100px;
+            background: #ddd;
+            padding: 10px;
+        }
+        .p1-item {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            margin: 5px;
+            text-align: center;
+            font-size: 20px;
+        }
+        /* Note: display: grid activates grid. grid-template-columns: 100px 100px 100px creates 3 columns of 100px each! */
+
+        /* Problem 2 — 3 Equal Columns with fr */
+
+        .p2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            background: #ddd;
+        }
+        .p2-item {
+            background: #e74c3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+        }
+        /* Note: fr means "fraction of available space" — 1fr 1fr 1fr = 3 equal columns. Much better than using pixels! */
+
+        /* Problem 3 — Different Column Sizes */
+
+        .p3-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            background: #ddd;
+        }
+        .p3-item {
+            background: #2ecc71;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+        }
+        /* Note: 1fr 3fr 1fr means middle column is 3x wider than side columns — perfect for sidebar layouts! */
+
+        /* Problem 4 — Grid Gap */
+
+        .p4-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 10px;
+            background: #ddd;
+        }
+        .p4-item {
+            background: #9b59b6;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 20px;
+        }
+        /* Note: gap adds space between ALL grid items — same as flexbox gap! */
+
+        /* Problem 5 — Defining Rows */
+
+        .p5-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 80px 120px;
+            gap: 20px;
+            padding: 10px;
+            background: #ddd;
+        }
+        .p5-item {
+            background: #e67e22;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Note: grid-template-rows controls row heights — first row 80px, second row 120px! */
+
+        /* Problem 6 — Span Columns */
+
+        .p6-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 10px;
+            gap: 10px;
+            background: #ddd;
+        }
+        .p6-item {
+            background: #1abc9c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+        }
+        .p6-item.wide {
+            grid-column: span 2;
+            background: #16a085;
+        }
+        /* Note: grid-column: span 2 makes item take up 2 columns — like merging cells in Excel! */
+
+        /* Problem 7 — Span Rows */
+
+        .p7-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            background: #ddd;
+        } 
+        .p7-item {
+            background: #e91e63;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+        }
+        .p7-item.tall {
+            grid-row: span 2;
+            background: #c2185b;
+        }
+        /* Note: grid-row: span 2 makes item take up 2 rows — very useful for featured content! */
+
+        /* Problem 8 — Auto Fill */
+
+        .p8-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
+            gap: 10px;
+            padding: 10px;
+            background: #ddd;
+        }
+        .p8-item {
+            background: #607d8b;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 6px;
+        }
+        /* Note: auto-fill + minmax(150px, 1fr) automatically creates as many columns as fit — resize browser and watch it adjust! This is responsive design! */
+
+        /* Problem 9 — Center Items */
+
+        .p9-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            background: #ddd;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        .p9-item {
+            background: #ff5722;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 6px;
+        }
+
+        /* Problem 10 — Photo Gallery */
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 10px;
+        }
+        .gallery-item {
+            background: #333;
+            color: white;
+            height: 120px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        /* Note: repeat(3, 1fr) is shorthand for 1fr 1fr 1fr — cleaner! Hover over items to see scale effect! */
+
+        /* Problem 11 — Dashboard Cards */
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 10px;
+        }
+        .dash-item {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #3498db;
+        }
+        /* Note: This looks exactly like real admin dashboards! border-top adds a colored accent line at top! */
+
+        /* Problem 12 — Full Page Layout */
+
+        .page-layout {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            grid-template-rows: 60px 1fr 50px;
+            grid-template-areas: 
+                "header header"
+                "sidebar main"
+                "footer footer";
+            gap: 10px;
+            height: 300px;
+            padding: 10px;
+            background: #ddd;
+        }
+        .page-header {
+            grid-area: header;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+        .page-sidebar {
+            grid-area: sidebar;
+            background: #95a5a6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+        .page-main {
+            grid-area: main;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+        .page-footer {
+            grid-area: footer;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+        /* Note: grid-template-areas lets you name areas and place them visually — most readable way to build page layouts! */
+
+        /* Problem 13 — Nested Grid */
+
+        .outer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            background: #ddd;
+        }
+        .outer-item {
+            background: #8e44ad;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            min-height: 100px;
+        }
+        .inner-grid {
+            display: flex;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+        .inner-item {
+            background: #6c3483;
+            padding: 15px;
+            text-align: center;
+            border-radius: 4px;
+        }
+        /* Note: A grid inside a grid — you can nest them as deep as needed! */
+
+        /* Problem 14 — Responsive Grid */
+
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+        .resp-item {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            transition: box-shadow 0.2s;
+        }
+        .resp-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transform: scale(1.03);
+            transition: transform 0.3s;
+        }
+        /* Note: Resize your browser window — cards automatically rearrange! No JavaScript needed, pure CSS! 🎉 */
+
+        /* Problem 15 — Mini Project: Portfolio Grid */
+
+        .portfolio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 200px 150px;
+            gap: 15px;
+            padding: 10px;
+        }
+        .port-item {
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .port-item:hover {
+            background: #3498db;
+            transform: scale(1.02);
+        }
+        .port-item.featured {
+            grid-column: span 2;
+            background: #e74c3c;
+            font-size: 24px;
+        }
+        /* Note: Featured project spans 2 columns — exactly how real portfolio websites look! */
+    </style>
+</head>
+<body>
+    
+    <h2>Problem 1 - Basic Grid</h2>
+    <div class="p1-grid">
+        <div class="p1-item">1</div>
+        <div class="p1-item">2</div>
+        <div class="p1-item">3</div>
+        <div class="p1-item">4</div>
+        <div class="p1-item">5</div>
+        <div class="p1-item">6</div>
+    </div>
+
+    <h2>Problem 2 - 3 Equal Columns</h2>
+    <div class="p2-grid">
+        <div class="p2-item">A</div>
+        <div class="p2-item">B</div>
+        <div class="p2-item">C</div>
+        <div class="p2-item">D</div>
+        <div class="p2-item">E</div>
+        <div class="p2-item">F</div>
+    </div>
+
+    <h2>Problem 3 - Diffrent Column Sizes</h2>
+    <div class="p3-grid">
+        <div class="p3-item">Sidebar</div>
+        <div class="p3-item">Main Content</div>
+        <div class="p3-item">Ad</div>
+    </div>
+
+    <h2>Problem 4 - Grid Gap</h2>
+    <div class="p4-grid">
+        <div class="p4-item">1</div>
+        <div class="p4-item">2</div>
+        <div class="p4-item">3</div>
+        <div class="p4-item">4</div>
+    </div>
+
+    <h2>Problem 5 - Grid Rows</h2>
+    <div class="p5-grid">
+        <div class="p5-item">1</div>
+        <div class="p5-item">2</div>
+        <div class="p5-item">3</div>
+        <div class="p5-item">4</div>
+        <div class="p5-item">5</div>
+        <div class="p5-item">6</div>
+    </div>
+
+    <h2>Problem 6 - Span Columns</h2>
+    <div class="p6-grid">
+        <div class="p6-item wide">Wide Item (span 2)</div>
+        <div class="p6-item">Normal</div>
+        <div class="p6-item">Normal</div>
+        <div class="p6-item">Normal</div>
+    </div>
+
+    <h2>Problem 7 - Span Rows</h2>
+    <div class="p7-grid">
+        <div class="p7-item tall">Tall (span 2 rows)</div>
+        <div class="p7-item">1</div>
+        <div class="p7-item">2</div>
+        <div class="p7-item">3</div>
+        <div class="p7-item">4</div>
+    </div>
+
+    <h2>Problem 8 - Auto Fill</h2>
+    <div class="p8-grid">
+        <div class="p8-item">1</div>
+        <div class="p8-item">2</div>
+        <div class="p8-item">3</div>
+        <div class="p8-item">4</div>
+        <div class="p8-item">5</div>
+        <div class="p8-item">6</div>
+        <div class="p8-item">7</div>
+        <div class="p8-item">8</div>
+    </div>
+
+    <h2>Problem 9 - Center Items In Grid</h2>
+    <div class="p9-grid">
+        <div class="p9-item">1</div>
+        <div class="p9-item">2</div>
+        <div class="p9-item">3</div>
+        <div class="p9-item">4</div>
+    </div>
+
+    <h2>Problem 10 - Photo Gallery</h2>
+    <div class="gallery">
+        <div class="gallery-item">Photo 1</div>
+        <div class="gallery-item">Photo 2</div>
+        <div class="gallery-item">Photo 3</div>
+        <div class="gallery-item">Photo 4</div>
+        <div class="gallery-item">Photo 5</div>
+        <div class="gallery-item">Photo 6</div>
+    </div>
+
+    <h2>Problem 11 - Dashboard Layout</h2>
+    <div class="dashboard">
+        <div class="dash-item">Users : 1,234</div>
+        <div class="dash-item">Revenue : $5,678</div>
+        <div class="dash-item">Orders : 910</div>
+        <div class="dash-item">Growth : 12%</div>
+    </div>
+
+    <h2>Problem 12 - Full Page Layout</h2>
+    <div class="page-layout">
+        <header class="page-header">Header</header>
+        <aside class="page-sidebar">Sidebar</aside>
+        <main class="page-main">Main Content</main>
+        <footer class="page-footer">Footer</footer>
+    </div>
+
+    <h2>Problem 13 - Nested Grid</h2>
+    <div class="outer-grid">
+        <div class="outer-item">
+            <div class="inner-grid">
+                <div class="inner-item">A</div>
+                <div class="inner-item">B</div>
+                <div class="inner-item">C</div>
+                <div class="inner-item">D</div>
+            </div>
+        </div>
+        <div class="outer-item">Item 2</div>
+        <div class="outer-item">Item 3</div>
+    </div>
+
+    <h2>Problem 14 - Responsive Grid</h2>
+    <div class="responsive-grid">
+        <div class="resp-item">Card 1</div>
+        <div class="resp-item">Card 2</div>
+        <div class="resp-item">Card 3</div>
+        <div class="resp-item">Card 4</div>
+        <div class="resp-item">Card 5</div>
+        <div class="resp-item">Card 6</div>
+    </div>
+
+    <h2>Problem 15 - Mini Project: Portfolio Griid</h2>
+    <div class="portfolio">
+        <div class="port-item featured">Featured Project</div>
+        <div class="port-item">Project 2</div>
+        <div class="port-item">Project 3</div>
+        <div class="port-item">Project 4</div>
+        <div class="port-item">Project 5</div>
+    </div>
+
+</body>
+</html>
