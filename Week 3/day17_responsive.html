@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h2 {
+            margin: 25px 0 10px;
+            color: #333;
+        }
+
+        /* Problem 1 — Viewport Meta Tag */
+
+        /* The meta viewport tag in <head> is the most
+        important line for responsive design!
+        width=device-width → match screen width
+        initial-scale=1.0  → no zoom on load */
+
+        #p1 {
+            font-size: 18px;
+            color: #666;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+        /* Note: Always include <meta name="viewport"> in every HTML file — without it mobile browsers zoom out and your site looks tiny! */
+
+        /* Problem 2 — Basic Media Query */
+
+        .p2-box {
+            padding: 20px;
+            background: #3498db;
+            color: white;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        /* When screen is 768px or smaller */
+        @media (max-width: 768px) {
+            .p2-box {
+                background: #e74c3c;
+                font-size: 14px;
+            }
+        }
+        /* Note: @media (max-width: 768px) means "apply these styles ONLY when screen is 768px wide or less." Resize browser to see it change! This is the core of responsive design! */
+
+        /* Problem 3 — Responsive Font Size */
+
+        .p3-title {
+            font-size: 48px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .p3-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .p3-title {
+                font-size: 20px;
+            }
+        }
+        /* Note: Multiple breakpoints — desktop gets 48px, tablet gets 28px, mobile gets 20px! */
+
+        /* Problem 4 — Show/Hide on Mobile */
+
+        .desktop-only {
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 5px 0;
+        }
+        .mobile-only {
+            display: none;
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-only {display: none;}
+            .mobile-only {display: block;}
+        }
+        /* Note: This is how websites show different menus on mobile vs desktop! */
+
+        /* Problem 5 — Responsive Navbar */
+
+        .resp-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            padding: 15px 25px;
+            border-radius: 8px;
+        }
+        .nav-logo {
+            color: #3498db;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        .nav-menu li {
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .resp-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-menu {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        /* Note: On mobile the navbar stacks vertically instead of horizontal! */
+
+        /* Problem 6 — Responsive Grid */
+
+        .resp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 10px;
+        }
+        .resp-card {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .resp-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .resp-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Note: Desktop = 3 columns, tablet = 2 columns, mobile = 1 column. Resize browser and watch! */
+
+        /* Problem 7 — Responsive Flexbox */
+
+        .resp-flex {
+            display: flex;
+            gap: 15px;
+            padding: 10px;
+        }
+        .flex-item {
+            flex: 1;
+            background: #9b59b6;;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .resp-flex {
+                flex-direction: column;
+            }
+        }
+        /* Note: Row on desktop, column on mobile — super common pattern! */
+
+        /* Problem 8 — Responsive Image */
+
+        .image-container {
+            width: 100%;
+        }
+        .fake-img {
+            width: 100%;
+            max-width: 600%;
+            height: 200px;
+            background: #ddd;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            font-size: 24px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .fake-img {
+                height: 120px;
+                font-size: 18px;
+            }
+        }
+        /* Note: width: 100% + max-width: 600px = fills container but never gets bigger than 600px. This is how all responsive images work! */
+
+        /* Problem 9 — Responsive Typography */
+
+        .text-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .resp-h1 {
+            font-size: 42px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .resp-p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .resp-h1 {font-size: 28px;}
+            .resp-p {font-size: 15px;}
+        }
+
+        @media (max-width: 480px) {
+            .resp-h1 {font-size: 22px;}
+            .resp-p {font-size: 13px;}
+        }
+
+        /* Problem 10 — Responsive Padding */
+
+        .resp-section {
+            background: #3498db;
+            color: white;
+            padding: 60px 80px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px){
+            .resp-section {
+                padding: 30px 25px;
+                font-size: 16px;
+            }
+        }
+        /* Note: Big padding on desktop looks great — but on mobile it wastes space, so we reduce it! */
+
+        /* Problem 11 — Two Columns to One */
+
+        .two-col {
+            display: flex;
+            gap: 20px;
+        }
+        .col-item {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .two-col {
+                flex-direction: column;
+            }
+        }
+
+        /* Problem 12 — Responsive Button */
+
+        .resp-btn {
+            padding: 12px 35px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .resp-btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 18px;
+            }
+        }
+        /* Note: On mobile, full-width buttons are much easier to tap with a finger! */
+
+        /* Problem 13 — Responsive Table */
+
+        .table-container {
+            overflow-x: auto;
+        }
+        .resp-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+        }
+        .resp-table th {
+            background: #333;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            
+        }
+        .resp-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        /* Note: overflow-x: auto lets table scroll horizontally on mobile instead of breaking the layout! */
+
+        /* Problem 14 — Multiple Breakpoints */
+
+        .breakpoint-box {
+            padding: 25px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            background: #3498db;;
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            .breakpoint-box {
+                background: #2ecc71;;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .breakpoint-box {
+                background: #e67e22;;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .breakpoint-box {
+                background: #e74c3c;;
+                font-size: 14px;
+            }
+        }
+        /* Note: 4 different colors at 4 different screen sizes — resize slowly and watch it change! This shows all common breakpoints! */
+
+        /* Problem 15 — Responsive Profile Card */
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-size: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+        .profile-details h3 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        .profile-details p {
+            color: #666;
+            margin-bottom: 3px;
+        }
+        .profile-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .prof-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            background: #3498db;
+            color: white;
+        }
+        .prof-btn:hover {
+            background: #2980b9;
+        }
+
+        @media (max-width: 480px) {
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-btns {
+                justify-content: center;
+            }
+        }
+        /* Note: On mobile the card stacks vertically and centers — much better on small screens! */
+
+    </style>
+</head>
+<body>
+    
+    <h2>Problem 1 - Viewport Meta Tag</h2>
+    <p id="p1">Resize The Browser To See responsive Behavior!</p>
+
+    <h2>Problem 2 - Basic Media Query</h2>
+    <div class="p2-box">Watch Me Change Color!</div>
+
+    <h2>Problem 3 -Font Size</h2>
+    <h1 class="p3-title">Responsive Title</h1>
+
+    <h2>Problem 4 - Show/Hide Elements</h2>
+    <div class="desktop-only">👀 Only visible on desktop</div>
+    <div class="mobile-only">📱 Only visible on mobile</div>
+
+    <h2>Problem 5 - Responsive Navbar</h2>
+    <nav class="resp-nav">
+        <div class="nav-logo">MyBrand</div>
+        <ul class="nav-menu">
+            <li>Home</li>
+            <li>About</li>
+            <li>Work</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+
+    <h2>Problem 6 - Responsive Grid</h2>
+    <div class="resp-grid">
+        <div class="resp-card">Card 1</div>
+        <div class="resp-card">Card 2</div>
+        <div class="resp-card">Card 3</div>
+        <div class="resp-card">Card 4</div>
+        <div class="resp-card">Card 5</div>
+        <div class="resp-card">Card 6</div>
+    </div>
+
+    <h2>Problem 7 - Responsive Flexbox</h2>
+    <div class="resp-flex">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+    </div>
+
+    <h2>Problem 8 - Responsive image</h2>
+    <div class="img-container">
+        <div class="fake-img">🖼️ Image placeholder</div>
+    </div>
+
+    <h2>Problem 9 - Responsive Typography</h2>
+    <div class="text-container">
+        <h1 class="resp-h1">Big Heading</h1>
+        <p class="resp-p">This paragraph adjusts its size based on screen width</p>
+    </div>
+
+    <h2>Problem 10 - Responsive Padding</h2>
+    <div class="resp-section">
+        <p>This section has different padding on mobile vs desktop</p>
+    </div>
+
+    <h2>Problem 11 - Two Column To One</h2>
+    <div class="two-col">
+        <div class="col-item">Column 1 — On mobile this goes full width!</div>
+        <div class="col-item">Column 2 — On mobile this goes below!</div>
+    </div>
+
+    <h2>Problem 12 - Responsive Button</h2>
+    <button class="resp-btn">Click Me</button>
+
+    <h2>Problem 13 - Responsive Table</h2>
+    <div class="table-container">
+        <table class="resp-table">
+            <tr><th>Name</th><th>Age</th><th>City</th></tr>
+            <tr><td>Anas</td><td>20</td><td>Hyderabad</td></tr>
+            <tr><td>Ahmed</td><td>22</td><td>Mumbai</td></tr>
+            <tr><td>Sara</td><td>21</td><td>Delhi</td></tr>
+        </table>
+    </div>
+
+    <h2>Problem 14 - Breakpoint</h2>
+    <div class="breakpoint-box">
+        Resize Me To see breakpoint!
+    </div>
+
+    <h2>Problem 15 - Mini Project - Responsive Profile Card</h2>
+    <div class="profile">
+        <div class="profile-avatar">AS</div>
+        <div class="profile-details">
+            <h3>Anas Shaikh</h3>
+            <p>Web Developer</p>
+            <p>Hyderabad</p>
+            <div class="profile-btn">
+                <button class="prof-btn">Follow</button>
+                <button class="prof-btn">Message</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
