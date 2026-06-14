@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h2 {
+            margin: 25px 0 10px;
+            color: #333;
+        }
+        input, button {
+            padding: 10px 15px;
+            font-size: 15px;
+            margin: 5px;
+            border-radius: 6px;
+            border-radius: 1px solid #ddd;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover { background: #2980b9;}
+        .output {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 12px 15px;
+            margin: 5px 0;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-red {
+            background: #e74c3c;
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h2>Problem 1 - Save & Get</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button onclick="saveName()">Save</button>
+    <button onclick="getName()">Get</button>
+    <div class="output" id="p1Output">Output Here</div>
+
+    <h2>Problem 2 - Remove Item</h2>
+    <button onclick="removeName()">Remove Name</button>
+    <div class="output" id="p2Output">Output Here</div>
+
+    <h2>Problem 3 - Clear All</h2>
+    <button onclick="clearAll()">Clear Everting</button>
+    <div class="output" id="p3Output">Output Here</div>
+
+    <h2>Problem 4 - Save Number</h2>
+    <button onclick="saveNumber()">Save Score: 100</button>
+    <button onclick="getNumber()">Get Number</button>
+    <div class="output" id="p4Output">Output Here</div>
+
+    <h2>Problem 5 - Counter That Persist</h2>
+    <button onclick="increment()">+1</button>
+    <button onclick="resetCounter()">Reset</button>
+    <div class="output" id="p5Output">Count : 0</div>
+
+    <h2>Problem 6 - Save Object</h2>
+    <button onclick="saveUser()">Save User Object</button>
+    <button onclick="getUser()">Get User Object</button>
+    <div class="output" id="p6Output">Output Here</div>
+
+    <h2>Problem 7 - Save Array</h2>
+    <button onclick="saveArray()">Save Color Array</button>
+    <button onclick="getArray()">Get Color Array</button>
+    <div class="output" id="p7Output">Output Here</div>
+
+    <h2>Problem 8 - Check if exists</h2>
+    <button onclick="checkExist()">Check if name exist</button>
+    <div class="output" id="p8Output">Output Here</div>
+
+    <h2>Problem 9 - Dark Mode Toggle</h2>
+    <button onclick="toggleTheme()">Toggle Dark Mode</button>
+    <div class="output" id="p9Output">Current Theme : Light</div>
+
+    <h2>Problem 10 - Remember From Input</h2>
+    <input type="text" id="formInput" placeholder="Type Something..."
+            oninput="saveInput()">
+    <div class="output" id="p10Output">Saved Input Appears Here</div>
+
+    <h2>Problem 11-15 - Todo List With LocalStorage</h2>
+    <input type="text" id="todoInput" placeholder="Add a Task...">
+    <button onclick="addTodo()">Add Task</button>
+    <button onclick="clearTodos()">Clear All</button>
+    <div id="todoList"></div>
+    <div class="output" id="todoCount">Tasks : 0</div>
+
+    <script>
+
+        // Problem 1 — Save & Get
+
+        function saveName() {
+            let name = document.getElementById("nameInput").value;
+            localStorage.setItem("username", name);
+            document.getElementById("p1Output").innerHTML = `✅ Saved: "${name}" — Refresh page and click Get!`;
+        }
+
+        function getName() {
+            let name = localStorage.getItem("username");
+            document.getElementById("p1Output").innerHTML = name ? `👤 Name: ${name}` : "❌ No name saved!";
+        }
+        // Note: setItem("key", value) saves. getItem("key") retrieves. Refresh the page and click Get — data is still there! That's localStorage magic! ✅
+
+        // Problem 2 — Remove Item
+
+        function removeName() {
+            localStorage.removeItem("username");
+            document.getElementById("p2Output").innerHTML = "🗑️ Name removed from localStorage!";
+        }
+
+        // Problem 3 — Clear All
+
+        function clearAll() {
+            localStorage.clear();
+            document.getElementById("p3Output").innerHTML = "🧹 All localStorage data cleared!";
+        }
+        // Warning: This removes EVERYTHING — use carefully!
+        
+        // Problem 4 — Save Number
+
+        function saveNumber() {
+            localStorage.setItem("score", 100);
+            document.getElementById("p4Output").innerHTML = "✅ Score 100 saved!";
+        }
+
+        function getNumber() {
+            let score = localStorage.getItem("score");
+            let num = Number(score);
+            document.getElementById("p4Output").innerHTML = `🎯 Score: ${num} (type: ${typeof num})`;
+        }
+        // Important: localStorage always saves as string — use Number() to convert back!
+
+        // Problem 5 — Persistent Counter
+
+        let count = Number(localStorage.getItem("count")) || 0;
+        document.getElementById("p5Output").innerHTML = `Count: ${count}`;
+
+        function increment() {
+            count++;
+            localStorage.setItem("count", count);
+            document.getElementById("p5Output").innerHTML = `Count: ${count}`;
+        }
+
+        function resetCounter() {
+            count = 0;
+            localStorage.setItem("count", 0);
+            document.getElementById("p5Output").innerHTML = `Count: ${count}`;
+        }
+        // Note: Refresh the page — counter remembers its value! This is how games save scores!
+
+        // Problem 6 — Save Object
+
+        function saveUser() {
+            let user = {
+                name: "Anas Shaikh",
+                age: 20,
+                city: "Hyderabad",
+                skills: ["HTML", "CSS", "JAVASCRIPT"]
+            };
+            // Must convert to string with JSON.stringify!
+            localStorage.setItem("user", JSON.stringify(user));
+            document.getElementById("p6Output").innerHTML = "✅ User object saved!";
+        }
+
+        function getUser() {
+            let userData = localStorage.getItem("user");
+            // Must convert back with JSON.parse!
+            let user = JSON.parse(userData);
+            document.getElementById("p6Output").innerHTML = `👤 ${user.name}, ${user.age}, ${user.city}
+         Skills: ${user.skills.join(", ")}`;
+        }
+        // Key concept: Objects must be converted:
+        // Saving → JSON.stringify(object) converts object to string
+        // Getting → JSON.parse(string) converts string back to object
+
+        // Problem 7 — Save Array
+
+        function saveArray() {
+            let colors = ["red", "blue", "green", "yellow", "purple"];
+            localStorage.setItem("colors", JSON.stringify(colors))
+            document.getElementById("p7Output").innerHTML = "✅ Colors array saved!";
+        }
+
+        function getArray() {
+            let colors = JSON.parse(localStorage.getItem("colors"));
+            document.getElementById("p7Output").innerHTML =
+        `🎨 Colors: ${colors.join(", ")} (${colors.length} items)`;
+        }
+
+        // Problem 8 — Check if Exists
+
+        function checkExist() {
+            let name = localStorage.getItem("username");
+            let output = document.getElementById("p8Output");
+
+            if (name) {
+                output.innerHTML = `✅ Name exists: "${name}"`;
+                output.style.color = "green";
+            } else {
+                output.innerHTML = "❌ No name in localStorage!";
+                output.style.color = "red";
+            }
+        }
+
+        // Problem 9 — Dark Mode Toggle
+
+        let savedTheme = localStorage.getItem("theme") || "light";
+        applyTheme(savedTheme);
+
+        function applyTheme(theme) {
+            if (theme === "dark") {
+                document.body.style.background = "#1a1a2e";
+                document.body.style.color = "white";
+            } else {
+                document.body.style.background = "#f5f5f5";
+                document.body.style.color = "#333";
+            }
+            document.getElementById("p9Output").innerHTML = `Current theme: ${theme}`;
+        }
+
+        function toggleTheme() {
+            let current = localStorage.getItem("theme") || "light";
+            let newTheme = current === "light" ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            applyTheme(newTheme);
+        }
+        // Note: Refresh the page — dark mode is remembered! This is exactly how real websites save your theme preference!
+
+        // Problem 10 — Remember Input
+
+        // Load saved input on page start
+        let savedInput = localStorage.getItem("formInput") || "";
+        document.getElementById("formInput").value = savedInput;
+        document.getElementById("p10Output").innerHTML =
+            savedInput ? `Loaded: "${savedInput}"` : "Nothing saved yet";
+
+        function saveInput() {
+            let value = document.getElementById("formInput").value;
+            localStorage.setItem("formInput", value);
+            document.getElementById("p10Output").innerHTML = `💾 Saved: "${value}"`;
+}
+        // Note: Type something, refresh page — your text is still there! Used in forms to prevent losing data on accidental refresh!
+
+        // Problems 11-15 — Todo List with localStorage
+
+        // Load todos from localStorage on page start
+        let todos = JSON.parse(localStorage.getItem("todos")) || [];
+        renderTodos();
+
+        function addTodo() {
+            let input = document.getElementById("todoInput");
+            let text = input.value.trim();
+
+            if (text === "") {
+                alert("Please enter a task!")
+                return;
+            }
+
+            todos.push({ text: text, done: false});
+            localStorage.setItem("todos", JSON.stringify(todos));
+            input.value = "";
+            renderTodos();
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            localStorage.setItem("todos", JSON.stringify(todos));
+            renderTodos();
+        }
+
+        function toggleTodo(index) {
+            todos[index].done = !todos[index].done;
+            localStorage.setItem("todos", JSON.stringify(todos));
+            renderTodos();
+        }
+
+        function clearTodos() {
+            todos = [];
+            localStorage.removeItem("todos")
+            renderTodos();
+        }
+
+        function renderTodos() {
+            let list = document.getElementById("todoList");
+            list.innerHTML = "";
+
+            todos.forEach(function(todo, index) {
+                let item = document.createElement("div");
+                item.classList.add("todo-item");
+
+                if (todo.done) {
+                    item.style.opacity = "0.5";
+                    item .style.textDecoration = "line-through";
+                }
+
+                item.innerHTML = `
+                    <span>${todo.text}</span>
+                    <div>
+                        <button onclick="toggleTodo(${index})" 
+                            style="background:#2ecc71; padding:6px 12px; font-size:13px;">
+                            ${todo.done ? "Undo" : "Done"}
+                        </button>
+                        <button onclick="deleteTodo(${index})"
+                            class="btn-red">Delete</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+
+            document.getElementById("todoCount").innerHTML = 
+                `Tasks: ${todos.length} total, 
+                ${todos.filter(t => t.done).length} done`;
+        }
+        // Note: Add tasks, refresh page — they're all still there! This is the upgrade from your Day 12 Todo List — now it actually saves data! 🎉
+
+    </script>
+</body>
+</html>
