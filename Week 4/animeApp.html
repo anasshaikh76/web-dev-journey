@@ -38,6 +38,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo {
@@ -49,6 +51,7 @@
         .nav-tabs {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .nav-tab {
@@ -60,6 +63,7 @@
             cursor: pointer;
             font-size: 14px;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .nav-tab.active {
@@ -115,6 +119,7 @@
             font-size: 16px;
             outline: none;
             transition: border-color 0.3s;
+            min-width: 0;
         }
 
         .search-box input:focus {
@@ -131,6 +136,7 @@
             cursor: pointer;
             font-weight: bold;
             transition: transform 0.2s;
+            white-space: nowrap;
         }
 
         .search-box button:hover {
@@ -179,6 +185,7 @@
             cursor: pointer;
             font-size: 13px;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .genre-btn:hover,
@@ -193,6 +200,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .results-header h2 {
@@ -333,18 +342,21 @@
 
         .modal-title-section {
             flex: 1;
+            min-width: 0;
         }
 
         .modal-title {
             font-size: 26px;
             font-weight: bold;
             margin-bottom: 8px;
+            word-break: break-word;
         }
 
         .modal-title-jp {
             color: var(--gray);
             font-size: 14px;
             margin-bottom: 12px;
+            word-break: break-word;
         }
 
         .modal-badges {
@@ -412,6 +424,9 @@
             font-size: 14px;
             font-weight: bold;
             transition: transform 0.2s;
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
         }
 
         .btn-watchlist:hover {
@@ -432,6 +447,9 @@
             font-size: 14px;
             font-weight: bold;
             transition: transform 0.2s;
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
         }
 
         .btn-remove-watchlist:hover {
@@ -446,6 +464,9 @@
             color: var(--gray);
             cursor: pointer;
             font-size: 14px;
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
         }
 
         .btn-close-modal:hover {
@@ -462,6 +483,7 @@
             line-height: 1.8;
             font-size: 14px;
             margin-bottom: 20px;
+            word-break: break-word;
         }
 
         .modal-section-title {
@@ -498,6 +520,7 @@
             font-size: 11px;
             padding: 6px;
             color: var(--gray);
+            word-break: break-word;
         }
 
         .character-card .char-role {
@@ -532,6 +555,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .btn-clear {
@@ -584,6 +609,7 @@
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
@@ -607,35 +633,262 @@
             font-size: 16px;
         }
 
+        /* ===== RESPONSIVE: TABLETS & PHONES ===== */
+        @media (max-width: 1024px) {
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 padding: 12px 15px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
             }
+
             .logo {
-                font-size: 18px;
+                font-size: 20px;
+                text-align: center;
             }
+
+            .nav-tabs {
+                justify-content: center;
+            }
+
             .nav-tab {
-                padding: 6px 12px;
-                font-size: 12px;
+                padding: 6px 14px;
+                font-size: 13px;
             }
+
+            .container {
+                padding: 20px 12px;
+            }
+
             .search-section h1 {
                 font-size: 28px;
             }
+
+            .search-section p {
+                font-size: 14px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .search-box input {
+                padding: 12px 16px;
+                font-size: 15px;
+                border-radius: 25px;
+            }
+
+            .search-box button {
+                padding: 12px 20px;
+                font-size: 15px;
+                border-radius: 25px;
+            }
+
+            .genre-filters {
+                gap: 6px;
+            }
+
+            .genre-btn {
+                padding: 5px 12px;
+                font-size: 12px;
+            }
+
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+                gap: 14px;
+            }
+
+            .anime-card img {
+                height: 220px;
+            }
+
+            .anime-card-title {
+                font-size: 13px;
+            }
+
             .modal-header {
                 flex-direction: column;
+                align-items: center;
+                padding: 18px;
+                gap: 15px;
             }
+
             .modal-poster {
                 width: 100%;
-                height: 200px;
+                max-width: 200px;
+                height: 280px;
             }
+
+            .modal-title {
+                font-size: 22px;
+                text-align: center;
+            }
+
+            .modal-title-jp {
+                text-align: center;
+            }
+
+            .modal-badges {
+                justify-content: center;
+            }
+
             .modal-stats {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
             }
-            .anime-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+            .stat-box .stat-num {
+                font-size: 16px;
             }
+
+            .stat-box .stat-label {
+                font-size: 10px;
+            }
+
             .modal-actions {
                 flex-direction: column;
+                gap: 8px;
+            }
+
+            .btn-watchlist,
+            .btn-remove-watchlist,
+            .btn-close-modal {
+                width: 100%;
+                min-width: unset;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .modal-body {
+                padding: 18px;
+            }
+
+            .characters-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 12px;
+            }
+
+            .character-card img {
+                height: 110px;
+            }
+
+            .character-card p {
+                font-size: 10px;
+            }
+
+            #loadMoreBtn {
+                width: 100%;
+                padding: 14px;
+                font-size: 15px;
+                border-radius: 25px;
+            }
+
+            .watchlist-header h2 {
+                font-size: 18px;
+            }
+
+            .btn-clear {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+        }
+
+        /* ===== SMALL PHONES (320px - 480px) ===== */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-tab {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            .search-section h1 {
+                font-size: 24px;
+            }
+
+            .search-box input {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .search-box button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .anime-card img {
+                height: 190px;
+            }
+
+            .anime-card-title {
+                font-size: 12px;
+            }
+
+            .anime-card-meta {
+                font-size: 11px;
+            }
+
+            .modal-poster {
+                height: 220px;
+                max-width: 160px;
+            }
+
+            .modal-title {
+                font-size: 20px;
+            }
+
+            .modal-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .characters-grid {
+                grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+                gap: 10px;
+            }
+
+            .character-card img {
+                height: 90px;
+            }
+
+            .character-card p {
+                font-size: 9px;
+                padding: 4px;
+            }
+
+            .genre-btn {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+
+            .results-header h2 {
+                font-size: 16px;
+            }
+
+            .results-header p {
+                font-size: 12px !important;
+            }
+
+            .container {
+                padding: 15px 8px;
+            }
+
+            #suggestions .suggestion-item {
+                padding: 10px 14px;
+                font-size: 13px;
             }
         }
     </style>
@@ -664,7 +917,8 @@
                 <p>Search from thousands of anime titles</p>
 
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search anime... (e.g. One Piece, Naruto, Solo Leveling)" />
+                    <input type="text" id="searchInput"
+                        placeholder="Search anime... (e.g. One Piece, Naruto, Solo Leveling)" />
                     <button onclick="searchAnime()">Search</button>
                     <div id="suggestions"></div>
                 </div>
@@ -730,7 +984,8 @@
                     <div class="modal-badges" id="modalBadges"></div>
                     <div class="modal-stats" id="modalStats"></div>
                     <div class="modal-actions" id="modalActions">
-                        <button class="btn-watchlist" id="watchlistBtn" onclick="toggleWatchlist()">+ Add to Watchlist</button>
+                        <button class="btn-watchlist" id="watchlistBtn" onclick="toggleWatchlist()">+ Add to
+                            Watchlist</button>
                         <button class="btn-close-modal" onclick="closeModal()">✕ Close</button>
                     </div>
                 </div>
@@ -1276,7 +1531,7 @@
         // SEARCH SUGGESTIONS (with English titles)
         // ==========================================
 
-        document.getElementById('searchInput').addEventListener('input', function() {
+        document.getElementById('searchInput').addEventListener('input', function () {
             clearTimeout(searchTimeout);
             const value = this.value.trim();
             const suggestions = document.getElementById('suggestions');
@@ -1309,7 +1564,7 @@
             }, 500);
         });
 
-        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+        document.getElementById('searchInput').addEventListener('keydown', function (e) {
             if (e.key === 'Enter') searchAnime();
         });
     </script>
