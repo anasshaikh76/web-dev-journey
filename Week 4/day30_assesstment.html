@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 30 – All in One</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, 'Segoe UI', sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: #16213e;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            color: #e94560;
+            font-size: 20px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #0f3460;
+            padding-bottom: 8px;
+        }
+
+        /* --- Q8: Anime Search --- */
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #0f3460;
+            border-radius: 30px;
+            background: #1a1a2e;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-box input:focus {
+            border-color: #e94560;
+        }
+        .search-box button {
+            padding: 10px 18px;
+            background: #e94560;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .search-box button:hover {
+            transform: scale(1.05);
+        }
+        .result-count {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .result-count span {
+            color: #e94560;
+            font-weight: bold;
+        }
+        .anime-list {
+            list-style: none;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+        .anime-list li {
+            padding: 10px 14px;
+            background: #1a1a2e;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            border-left: 4px solid #e94560;
+            font-size: 14px;
+        }
+        .anime-list .no-result {
+            color: #e94560;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* --- Q9: Random User --- */
+        .fetch-btn {
+            width: 100%;
+            padding: 12px;
+            background: #e94560;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 16px;
+        }
+        .fetch-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+        }
+        .fetch-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .loading-text {
+            color: #aaa;
+            text-align: center;
+            padding: 20px 0;
+            display: none;
+        }
+        .loading-text.show {
+            display: block;
+        }
+        .user-card {
+            background: #1a1a2e;
+            padding: 18px;
+            border-radius: 12px;
+            border-left: 4px solid #e94560;
+            display: none;
+        }
+        .user-card.show {
+            display: block;
+        }
+        .user-card h3 {
+            color: #e94560;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .user-card p {
+            color: #aaa;
+            font-size: 14px;
+            margin: 4px 0;
+        }
+        .user-card p strong {
+            color: #fff;
+        }
+        .error-msg {
+            color: #e74c3c;
+            text-align: center;
+            padding: 10px;
+            display: none;
+        }
+        .error-msg.show {
+            display: block;
+        }
+
+        /* --- Q10: Notes Manager --- */
+        .notes-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .notes-form input,
+        .notes-form textarea {
+            padding: 10px 14px;
+            border: 2px solid #0f3460;
+            border-radius: 8px;
+            background: #1a1a2e;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+        }
+        .notes-form input:focus,
+        .notes-form textarea:focus {
+            border-color: #e94560;
+        }
+        .notes-form textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .notes-form button {
+            padding: 10px;
+            background: #e94560;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .notes-form button:hover {
+            transform: scale(1.02);
+        }
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0 10px;
+        }
+        .notes-header span {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .notes-header span b {
+            color: #e94560;
+        }
+        .clear-btn {
+            padding: 6px 14px;
+            background: #e74c3c;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .clear-btn:hover {
+            transform: scale(1.05);
+        }
+        .notes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            max-height: 260px;
+            overflow-y: auto;
+        }
+        .note-card {
+            background: #1a1a2e;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border-left: 4px solid #e94560;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .note-card .note-content {
+            flex: 1;
+        }
+        .note-card .note-title {
+            font-weight: bold;
+            font-size: 15px;
+            color: #fff;
+        }
+        .note-card .note-text {
+            color: #aaa;
+            font-size: 13px;
+            margin-top: 4px;
+            word-break: break-word;
+        }
+        .note-card .delete-btn {
+            background: #e74c3c;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .note-card .delete-btn:hover {
+            transform: scale(1.1);
+        }
+        .empty-notes {
+            color: #555;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- ===== Q8: Anime Search ===== -->
+        <div class="card">
+            <h2>🎌 Anime Search</h2>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Type anime..." />
+                <button id="clearBtn">✕</button>
+            </div>
+            <div class="result-count">Showing <span id="countDisplay">10</span> results</div>
+            <ul class="anime-list" id="animeList"></ul>
+        </div>
+
+        <!-- ===== Q9: Random User ===== -->
+        <div class="card">
+            <h2>👤 Random User</h2>
+            <button class="fetch-btn" id="fetchBtn">🎲 Fetch User</button>
+            <div class="loading-text" id="loadingText">⏳ Loading...</div>
+            <div class="error-msg" id="errorMsg">❌ Failed to fetch user.</div>
+            <div class="user-card" id="userCard">
+                <h3 id="userName">Name</h3>
+                <p><strong>📧 Email:</strong> <span id="userEmail">---</span></p>
+                <p><strong>🏙️ City:</strong> <span id="userCity">---</span></p>
+                <p><strong>🏢 Company:</strong> <span id="userCompany">---</span></p>
+            </div>
+        </div>
+
+        <!-- ===== Q10: Notes Manager ===== -->
+        <div class="card">
+            <h2>📝 Notes</h2>
+            <div class="notes-form">
+                <input type="text" id="noteTitle" placeholder="Title" />
+                <textarea id="noteContent" placeholder="Content..."></textarea>
+                <button id="addNoteBtn">➕ Add Note</button>
+            </div>
+            <div class="notes-header">
+                <span>Total: <b id="noteCount">0</b></span>
+                <button class="clear-btn" id="clearNotesBtn">🗑️ Clear All</button>
+            </div>
+            <div class="notes-grid" id="notesGrid">
+                <div class="empty-notes">No notes yet.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // Q8 — Live Anime Search
+        // ==========================================
+        const animeNames = [
+            'Attack on Titan', 'Demon Slayer', 'One Piece',
+            'Naruto Shippuden', 'Death Note', 'Fullmetal Alchemist',
+            'Sword Art Online', 'My Hero Academia',
+            'Jujutsu Kaisen', 'One Punch Man'
+        ];
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearBtn');
+        const animeList = document.getElementById('animeList');
+        const countDisplay = document.getElementById('countDisplay');
+
+        function renderAnime(filter = '') {
+            const filtered = animeNames.filter(name =>
+                name.toLowerCase().includes(filter.toLowerCase().trim())
+            );
+            animeList.innerHTML = '';
+            countDisplay.textContent = filtered.length;
+            if (filtered.length === 0) {
+                const li = document.createElement('li');
+                li.className = 'no-result';
+                li.textContent = '😔 No results';
+                animeList.appendChild(li);
+                return;
+            }
+            filtered.forEach(name => {
+                const li = document.createElement('li');
+                li.textContent = name;
+                animeList.appendChild(li);
+            });
+        }
+        searchInput.addEventListener('input', () => renderAnime(searchInput.value));
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            renderAnime('');
+            searchInput.focus();
+        });
+        renderAnime();
+
+        // ==========================================
+        // Q9 — Random User Fetcher
+        // ==========================================
+        const fetchBtn = document.getElementById('fetchBtn');
+        const loadingText = document.getElementById('loadingText');
+        const userCard = document.getElementById('userCard');
+        const errorMsg = document.getElementById('errorMsg');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        const userCity = document.getElementById('userCity');
+        const userCompany = document.getElementById('userCompany');
+        let lastId = null;
+
+        function getRandomId() {
+            let id;
+            do { id = Math.floor(Math.random() * 10) + 1; } while (id === lastId);
+            lastId = id;
+            return id;
+        }
+        async function fetchUser() {
+            errorMsg.classList.remove('show');
+            userCard.classList.remove('show');
+            loadingText.classList.add('show');
+            fetchBtn.disabled = true;
+            fetchBtn.textContent = '⏳ Loading...';
+            try {
+                const res = await fetch(`https://jsonplaceholder.typicode.com/users/${getRandomId()}`);
+                if (!res.ok) throw new Error('Network error');
+                const user = await res.json();
+                userName.textContent = user.name;
+                userEmail.textContent = user.email;
+                userCity.textContent = user.address.city;
+                userCompany.textContent = user.company.name;
+                userCard.classList.add('show');
+            } catch (err) {
+                errorMsg.classList.add('show');
+            } finally {
+                loadingText.classList.remove('show');
+                fetchBtn.disabled = false;
+                fetchBtn.textContent = '🎲 Fetch User';
+            }
+        }
+        fetchBtn.addEventListener('click', fetchUser);
+        window.addEventListener('DOMContentLoaded', fetchUser);
+
+        // ==========================================
+        // Q10 — Notes Manager (localStorage)
+        // ==========================================
+        const noteTitle = document.getElementById('noteTitle');
+        const noteContent = document.getElementById('noteContent');
+        const addNoteBtn = document.getElementById('addNoteBtn');
+        const notesGrid = document.getElementById('notesGrid');
+        const noteCount = document.getElementById('noteCount');
+        const clearNotesBtn = document.getElementById('clearNotesBtn');
+
+        let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+        function saveNotes() {
+            localStorage.setItem('notes', JSON.stringify(notes));
+        }
+
+        function renderNotes() {
+            notesGrid.innerHTML = '';
+            noteCount.textContent = notes.length;
+
+            if (notes.length === 0) {
+                notesGrid.innerHTML = '<div class="empty-notes">No notes yet.</div>';
+                return;
+            }
+
+            notes.forEach((note, index) => {
+                const card = document.createElement('div');
+                card.className = 'note-card';
+                card.innerHTML = `
+                    <div class="note-content">
+                        <div class="note-title">${escapeHtml(note.title)}</div>
+                        <div class="note-text">${escapeHtml(note.content)}</div>
+                    </div>
+                    <button class="delete-btn" data-index="${index}">✕</button>
+                `;
+                notesGrid.appendChild(card);
+            });
+
+            // Attach delete events
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    notes.splice(idx, 1);
+                    saveNotes();
+                    renderNotes();
+                });
+            });
+        }
+
+        // Simple escape to prevent XSS (but we trust user input)
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function addNote() {
+            const title = noteTitle.value.trim();
+            const content = noteContent.value.trim();
+            if (!title || !content) {
+                alert('Please fill both title and content.');
+                return;
+            }
+            notes.push({ title, content });
+            saveNotes();
+            renderNotes();
+            noteTitle.value = '';
+            noteContent.value = '';
+            noteTitle.focus();
+        }
+
+        addNoteBtn.addEventListener('click', addNote);
+        noteTitle.addEventListener('keydown', (e) => { if (e.key === 'Enter') noteContent.focus(); });
+        noteContent.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault();
+                addNote(); } });
+
+        clearNotesBtn.addEventListener('click', () => {
+            if (notes.length === 0) return;
+            if (confirm('Delete all notes?')) {
+                notes = [];
+                saveNotes();
+                renderNotes();
+            }
+        });
+
+        // Initial render
+        renderNotes();
+    </script>
+</body>
+</html>
