@@ -123,12 +123,15 @@
     function moveZeroes(nums) {
         let insertPos = 0;
 
+        // Move all non-zero elements to front
         for (let num of nums) {
             if (num !== 0) {
                 nums[insertPos] = num;
                 insertPos++;
             }
         }
+
+        // Fill remaining positions with zeros
         while (insertPos < nums.length) {
             nums[insertPos] = 0;
             insertPos++;
@@ -139,3 +142,56 @@
     console.log([0, 1, 0, 3, 12]);
     console.log(moveZeroes([0, 0, 1]));
 }
+
+// Problem 8 — Best Time to Buy and Sell Stock
+
+{
+    function maxProfit(prices) {
+        let minPrice = Infinity;
+        let maxProfit = 0;
+
+        for (let price of prices) {
+            if (price < minPrice) {
+                minPrice = price; // best day to buy
+            } else if (price - minPrice > maxProfit) {
+                maxProfit = price - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+
+    console.log(maxProfit([7, 1, 5, 3, 6, 4])); // 5 (buy at 1, sell at 6)
+    console.log(maxProfit([7, 6, 4, 3, 1]));     // 0 (prices only fall)
+}
+
+// Problem 9 — Rotate Array
+
+{
+    function rotate(nums, k) {
+        k = k % nums.length;
+        const rotated = [...nums.slice(-k), ...nums.slice(0, -k)];
+        for (let i = 0; i < nums.length; i++) {
+            nums[i] = rotated[i];
+        }
+        return nums;
+    }
+    
+    console.log(rotate([1, 2, 3, 4, 5, 6, 7], 3)); // [5,6,7,1,2,3,4]
+    console.log(rotate([-1, -100, 3, 99], 2)); 
+}
+
+// Problem 10 — Single Number
+
+{
+    function singleNumber(nums) {
+        let result = 0;
+        for (let num of nums) {
+            result ^= num;
+        }
+        return result;
+    }
+
+    console.log(singleNumber([2, 2, 1]));       // 1
+    console.log(singleNumber([4, 1, 2, 1, 2])); // 4
+}
+// Note: ^ is XOR (exclusive OR) — same numbers cancel each other out. This is a clever bit manipulation trick interviewers love!
