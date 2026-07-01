@@ -233,6 +233,71 @@
 
 // Next 4 Leetcode Problems
 
+// No:125 Problem (leetcode problem number 125) : Valid Palindrome:
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function(s) {
+    s = s.toLowerCase().replace(/[^a-z0-9]/g, "");
+    let left = 0;
+    let right = s.length - 1;
+
+    while (left < right) {
+        if (s[left] !== s[right]) return false;
+        left++;
+        right--;
+    }
+    return true;
+};
+
+//No: 283 Problem : Move Zeroes
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function(nums) {
+    let n = nums.length;
+    let slow = 0;
+
+    for (let fast = 0; fast < n; fast++) {
+        if (nums[fast] !== 0) {
+            [nums[slow], nums[fast]] = [nums[fast], nums[slow]];
+            slow++;
+        }
+    }
+    return nums;
+};
+
+// No: 11 Problem : Container With Most Water
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(heights) {
+    let left = 0;
+    let right = heights.length - 1;
+    let maxWater = 0;
+
+    while(left < right) {
+        const width = right - left;
+        const height = Math.min(heights[left], heights[right]);
+        const water = width * height;
+
+        maxWater = Math.max(maxWater, water);
+
+        if (heights[left] < heights[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return maxWater;
+};
+
 // No: 88(leetcode number problem): Merge Sorted Arrays:
 
 /**
