@@ -273,3 +273,59 @@
     console.log(characterReplacement("ABAB", 2)); // 4
     console.log(characterReplacement("AABABBA", 1));
 }
+
+// After This 10 Problems:
+// 🎯 LeetCode (do these on the website!)
+// ✅ #3   - Longest Substring Without Repeating Characters (Medium)
+// ✅ #121 - Best Time to Buy and Sell Stock (Easy) — sliding window approach
+// ✅ #209 - Minimum Size Subarray Sum (Medium)
+// ✅ #567 - Permutation in String (Medium)
+function checkInclusion(s1, s2) {
+    if (s1.length > s2.length) return false;
+
+    const s1Count = new Array(26).fill(0);
+    const windowCount = new Array(26).fill(0);
+    const a = "a".charCodeAt(0);
+
+    // Count characters in s1 and first window
+    for (let i = 0; i < s1.length; i++) {
+        s1Count[s1.charCodeAt(i) - a]++;
+        windowCount[s2.charCodeAt(i) - a]++;
+    }
+
+    // Count how many characters match
+    let matches = 0;
+    for (let i = 0; i < 26; i++) {
+        if (s1Count[i] === windowCount[i]) matches++;
+    }
+
+    // If all 26 characters match, found permutation!
+    if (matches === 26) return true;
+
+    // Slide the window
+    for (let i = s1.length; i < s2.length; i++) {
+        // Add new character
+        const newCharIndex = s2.charCodeAt(i) - a;
+        windowCount[newCharIndex]++;
+        if (windowCount[newCharIndex] === s1Count[newCharIndex]) {
+            matches++;
+        } else if (windowCount[newCharIndex] - 1 === s1Count[newCharIndex]) {
+            // It was a match before, now it's not
+            matches--;
+        }
+
+        // Remove old character
+        const oldCharIndex = s2.charCodeAt(i - s1.length) - a;
+        windowCount[oldCharIndex]--;
+        if (windowCount[oldCharIndex] === s1Count[oldCharIndex]) {
+            matches++;
+        } else if (windowCount[oldCharIndex] + 1 === s1Count[oldCharIndex]) {
+            // It was a match before, now it's not
+            matches--;
+        }
+
+        if (matches === 26) return true;
+    }
+
+    return false;
+}
