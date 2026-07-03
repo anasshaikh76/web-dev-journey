@@ -212,3 +212,13 @@
     }
     console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]));   
 }
+// Note: LeetCode #49 — brilliant insight: anagrams become identical when sorted! "eat" → "aet", "tea" → "aet", "ate" → "aet" all become the same key!
+
+// After this 10 problems Do These:
+// 🎯 LeetCode Practice
+// ✅ #242 - Valid Anagram (Easy)
+// ✅ #387 - First Unique Character (Easy)
+// ✅ #14  - Longest Common Prefix (Easy)
+// ✅ #13  - Roman to Integer (Easy)
+// ✅ #20  - Valid Parentheses (Easy)
+// ✅ #49  - Group Anagrams (Medium)
