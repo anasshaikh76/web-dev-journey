@@ -57,6 +57,7 @@
     console.log(containsDuplicate([1, 2, 3, 1]));       // true
     console.log(containsDuplicateShort([1, 2, 3, 4]));
 }
+// Leetcode #217 Problem
 
 // Problem 4 — Intersection of Two Arrays
 
@@ -75,7 +76,7 @@
     console.log(intersection([1,2,2,1], [2,2]));       // [2]
     console.log(intersection([4,9,5], [9,4,9,8,4]));
 }
-// Note: Using Set for result automatically handles duplicates — no need to check manually!
+// leetcode #349 Problem, Note: Using Set for result automatically handles duplicates — no need to check manually!
 
 // Problem 5 — Longest Consecutive Sequence
 
