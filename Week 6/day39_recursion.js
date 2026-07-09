@@ -190,3 +190,4 @@
 
     hanoi(3, "A", "B", "C");
 }
+// Note: Classic recursion problem — 3 disks needs 7 moves, 4 disks needs 15, n disks needs 2ⁿ-1 moves. Pure recursion elegance!
