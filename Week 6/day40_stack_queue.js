@@ -325,3 +325,4 @@
     console.log(largestRectangle([2,1,5,6,2,3])); // 10
     console.log(largestRectangle([2,4]));           // 4
 }
+// Note: LeetCode #84 — Hard problem! Monotonic Stack keeps track of bars in increasing order. When we find a shorter bar, calculate rectangles for all taller bars that can't extend further!
