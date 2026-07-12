@@ -357,4 +357,6 @@
     lru.put(4, "four");
     console.log(lru.get(2));
     console.log(lru.get(3));
+    
+// Note: LeetCode #146 — LRU Cache is a very common interview question! JavaScript's Map maintains insertion order which makes this elegant. In real interviews they want you to use a Doubly Linked List + Hash Map!
 }
