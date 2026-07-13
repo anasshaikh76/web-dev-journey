@@ -314,3 +314,4 @@
 
     console.log(rightSideView(root));
 }
+// Note: LeetCode #199 — BFS level order! The last node at each level is what you see from the right side!
