@@ -370,3 +370,4 @@
     console.log(inorder(root)); // [1,2,3,4,5,6,7]
     console.log(root.val);
 }
+// Note: LeetCode #108 — always pick the MIDDLE element as root to keep tree balanced. Divide and conquer with recursion!
