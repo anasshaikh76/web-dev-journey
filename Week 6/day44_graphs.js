@@ -346,7 +346,7 @@
         [5,1,1,2,4]
     ]));
 }
-
+// Note: LeetCode #417 — reverse thinking! Instead of water flowing down, work backwards from oceans upward. Cell reaches both oceans = valid answer!
 
 // Problem 10 — Word Ladder (BFS Shortest Path)
 
