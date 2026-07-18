@@ -245,3 +245,36 @@
     console.log(minDistance("horse", "ros"));   // 3
     console.log(minDistance("intention", "execution")); // 5
 }
+// Note: LeetCode #72 — Hard but important! Classic 2D DP. If chars match, no operation needed. If not, try all 3 operations and pick minimum!
+
+
+// Problem 10 — Burst Balloons
+
+{
+    function maxCoins(nums) {
+        // Add boundary balloons with value 1
+        nums = [1, ...nums, 1];
+        const n = nums.length;
+        const dp = Array.from({length: n},
+                   () => new Array(n).fill(0));
+
+        // Try all window sizes
+        for (let len = 2; len < n; len++) {
+            for (let left = 0; left < n - len; left++) {
+                const right = left + len;
+
+                for (let k = left + 1; k < right; k++) {
+                    dp[left][right] = Math.max(
+                        dp[left][right],
+                        nums[left] * nums[k] * nums[right] +
+                        dp[left][k] + dp[k][right]
+                    );
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
+
+    console.log(maxCoins([3,1,5,8])); // 167
+    console.log(maxCoins([1,5]));      // 10
+}
