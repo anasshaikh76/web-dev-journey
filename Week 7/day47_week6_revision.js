@@ -392,3 +392,4 @@
     // ["5 → 8 → 13"]
 
 }
+// Pattern: Tree DFS + Backtracking + Recursion — all combined!
