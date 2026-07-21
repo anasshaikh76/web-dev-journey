@@ -346,3 +346,4 @@
     console.log(maxSlidingWindow([1], 1));
     // [1]
 }
+// Note: LeetCode #239 — Monotonic Deque (double-ended queue)! Keeps potential maximums in decreasing order. Front is always the maximum of current window!
