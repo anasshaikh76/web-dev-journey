@@ -52,7 +52,7 @@
 }
 // Note: LeetCode #208 — key difference: search checks isEnd, startsWith doesn't!
 
-// Note: LeetCode #208 — key difference: search checks isEnd, startsWith doesn't!
+// Problem 2 — Word Search II (Trie + Backtracking)
 
 {
     class TrieNode {
@@ -424,3 +424,4 @@
     console.log(matrix.sumRegion(2, 1, 3, 2)); // 3  (2+0+1+0)
     console.log(matrix.sumRegion(1, 1, 2, 2)); // 11 (6+3+2+0)
 }
+// Note: LeetCode #304 — 2D prefix sum for O(1) rectangle sum queries. The formula uses inclusion-exclusion principle!
