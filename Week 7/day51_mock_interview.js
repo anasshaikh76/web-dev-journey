@@ -167,3 +167,4 @@
 
     console.log(generateParentheses(3));
 }
+// Pattern: Backtracking — add ( if open count < n, add ) if close count < open count!
