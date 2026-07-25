@@ -389,3 +389,4 @@
         [10,9,8,7,6]
     ])); // 16
 }
+// Note: LeetCode #778 — Dijkstra variant! Instead of summing weights, take the MAXIMUM elevation encountered. Min heap ensures we always explore lowest time path first!
