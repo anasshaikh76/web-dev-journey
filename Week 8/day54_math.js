@@ -257,3 +257,4 @@
     console.log(fractionToDecimal(2, 3));   // "0.(6)"
     console.log(fractionToDecimal(4, 333)); // "0.(012)"
 }
+// Note: LeetCode #166 — use HashMap to detect recurring remainders! When same remainder appears twice, we found the cycle!
