@@ -313,3 +313,5 @@
     console.log(maxScore([1,2,3,4,5,6,1], 3)); // 12
     console.log(maxScore([2,2,2], 2));           // 4
 }
+// Note: LeetCode #1423 — reverse thinking! Instead of maximizing cards taken from ends, minimize the middle window of (n-k) cards NOT taken!
+
