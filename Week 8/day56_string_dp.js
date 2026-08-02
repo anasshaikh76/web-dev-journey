@@ -304,3 +304,4 @@
     console.log(mctFromLeafValues([6,2,4])); // 32
     console.log(mctFromLeafValues([4,11]));  // 44
 }
+// Note: LeetCode #1130 — Interval DP! Split array at every point k, cost = max(left) × max(right) + cost of building both subtrees!
