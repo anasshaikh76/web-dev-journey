@@ -225,3 +225,4 @@
     console.log(findMaxForm(["10","0001","111001","1","0"], 5, 3)); // 4
     console.log(findMaxForm(["10","0","1"], 1, 1)); // 2
 }
+// Note: LeetCode #474 — 2D Knapsack with TWO capacities (m zeros, n ones)! dp[i][j] = max strings using at most i zeros and j ones!
