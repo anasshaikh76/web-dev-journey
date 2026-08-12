@@ -213,3 +213,4 @@
     console.log(bellmanFord(5, edges, 0));
     // [0, 2, 5, 4, 5]
 }
+// Note: Bellman-Ford relaxes ALL edges V-1 times. Extra check for negative cycles — if still relaxing after V-1 rounds, negative cycle exists!
