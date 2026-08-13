@@ -193,3 +193,4 @@
     console.log("With cooldown:", stockStateMachine(prices, Infinity, true));
     console.log("With fee=1:", stockStateMachine(prices, Infinity, false, 1));
 }
+// Note: This problem shows how ONE framework handles all stock variations. The key is always tracking states and their transitions!
