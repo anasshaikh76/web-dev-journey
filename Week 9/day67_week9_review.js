@@ -233,3 +233,4 @@
 
     console.log(maxSumSubarray([2,1,5,1,3,2], 3)); // 9
 }
+// Pattern: Sliding Window (fixed size)!
