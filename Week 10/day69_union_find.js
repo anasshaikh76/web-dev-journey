@@ -311,3 +311,4 @@
     console.log(equationsPossible(["b==a","a==b"])); // true
     console.log(equationsPossible(["a==b","b==c","a!=c"])); // false
 }
+// Note: LeetCode #990 — two passes! First union all equalities, then check if any inequality connects same component. Contradiction = impossible!
