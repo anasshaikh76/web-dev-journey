@@ -143,6 +143,16 @@
 }
 // Note: LeetCode #28 — direct KMP application! Return first match position or -1!
 
+// Problem 4 — Longest Happy Prefix
+
+// Attempt first (10 mins):
+
+// Find longest prefix that's also a suffix (not whole string).
+
+// Input: "level" → "l"
+// Input: "ababab" → "abab"
+// Input: "leetcodeleet" → "leet"
+
 {
     function longestPrefix(s) {
         function buildLPS(pattern) {
@@ -285,5 +295,4 @@
     // ["as","hero"]
     console.log(stringMatching(["leetcode","et","code"]));
     // ["et","code"]
-
 }
